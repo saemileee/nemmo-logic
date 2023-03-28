@@ -1,0 +1,127 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0 auto;
+}
+
+:root {
+  --board-size-h: 300px;
+  --board-size-w: 300px;
+  --row-size: 5;
+  --col-size: 5;
+}
+
+/* grid */
+
+#game-grid-container {
+  width: inherit;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+}
+
+#game-grid-container div {
+}
+
+.grid-box {
+}
+
+/*  */
+
+#col-clue {
+  width: var(--board-size-w);
+  display: flex;
+  background-color: rgb(202, 216, 243);
+  border: 2px solid black;
+  border-bottom: none;
+}
+
+#col-clue .clue-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  /* align-items: flex-end; */
+  width: calc(var(--board-size-w) / var(--col-size));
+  border-right: 1px solid black;
+  overflow: hidden;
+}
+
+#col-clue .clue-container:last-child {
+  border: none;
+}
+
+#col-clue .clue-container p {
+  border-top: 1px solid black;
+}
+
+#row-clue {
+  height: var(--board-size-h);
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(202, 216, 243);
+  border: 2px solid black;
+  border-right: none;
+}
+
+#row-clue .clue-container {
+  display: flex;
+  justify-content: flex-end;
+  height: calc(var(--board-size-h) / var(--row-size));
+  border-bottom: 1px solid black;
+  overflow: hidden;
+}
+
+#row-clue .clue-container:last-child {
+  border: none;
+}
+
+#row-clue .clue-container p {
+  display: inline-block;
+  border-left: 1px solid black;
+  overflow: hidden;
+}
+
+.clue-container p {
+  width: calc(var(--board-size-w) / var(--col-size));
+  height: calc(var(--board-size-h) / var(--row-size));
+  text-align: center;
+
+  font-size: 1.2em;
+  line-height: 1.8em;
+  overflow: hidden;
+}
+
+/* 셀 보드 */
+#board {
+  width: var(--board-size-w);
+  height: var(--board-size-h);
+  display: grid;
+  grid-template-rows: repeat(var(--box-size), 1fr);
+  border: 2px solid black;
+}
+
+#board div.row {
+  width: 100%;
+  display: inline-grid;
+  grid-template-columns: repeat(var(--col-size), 1fr);
+}
+
+#board div.row > div {
+  display: inline-block;
+  border-left: 0.5px solid rgb(180, 180, 180);
+  border-bottom: 0.5px solid rgb(180, 180, 180);
+}
+
+#board div.row > div.true {
+  background-color: black;
+}
+
+#board div.row > div.block {
+  background-color: red;
+}
+
+/* flex는 높이와 너비 값이 정해지고 여백의 규칙을 세울 때 좋고 grid는 높이와 너비 값이 정해져있지 않을 때 균등하게 레이아웃을 나누기에 좋음 */
