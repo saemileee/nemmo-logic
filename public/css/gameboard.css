@@ -14,7 +14,6 @@ body {
   --col-size: 5;
 }
 
-
 /* grid */
 
 #game-grid-container {
@@ -110,10 +109,18 @@ body {
   grid-template-columns: repeat(var(--col-size), 1fr);
 }
 
+#board div.row:hover {
+  background-color: rgba(169, 208, 195, 0.709);
+}
+
 #board div.row > div {
   display: inline-block;
   border-left: 0.5px solid rgb(180, 180, 180);
   border-bottom: 0.5px solid rgb(180, 180, 180);
+}
+
+#board div.row > div:focus {
+  background-color: rgba(96, 101, 100, 0.883);
 }
 
 #board div.row > div.true {

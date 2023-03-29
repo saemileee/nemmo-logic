@@ -71,6 +71,10 @@ export function paintStage(puzzleArr) {
   let isMouseDown = false;
   // let isFillMode = false;
 
+  //클릭한 위치의 로우와 칼럼 셀들만 선택할 수 있도록 하기
+  let firstClickedCellIdx = [];
+  let selectedCellIdx = [];
+
   function mouseDownOnCell(e) {
     e.preventDefault();
     isMouseDown = true;
@@ -79,6 +83,11 @@ export function paintStage(puzzleArr) {
     const thisCol = parseInt(e.target.getAttribute("data-col"));
     const cellStatus = cells[thisRow][thisCol];
 
+    //클릭한 위치의 로우와 칼럼 셀들만 선택할 수 있도록 하기
+
+    firstClickedCellIdx = [thisRow, thisCol];
+
+    //좌/우 클릭에 따라 fillMode 변경
     if (e.button === 0) {
       if (!cellStatus || cellStatus === "block") {
         fillMode = true;
@@ -99,22 +108,58 @@ export function paintStage(puzzleArr) {
   function mouseOverOnCell(e) {
     const thisRow = parseInt(e.target.getAttribute("data-row"));
     const thisCol = parseInt(e.target.getAttribute("data-col"));
+
+    //선택이 가능한 셀들 중 현재 마우스가 위치한 셀 인덱스 값을 기준으로 위치한 값듦 배열에 넣기
+    selectedCellIdx = [];
     if (isMouseDown) {
-      if (!fillMode) {
-        cells[thisRow][thisCol] = false;
-      } else if (fillMode === true) {
-        cells[thisRow][thisCol] = true;
-      } else if (fillMode === "block") {
-        cells[thisRow][thisCol] = "block";
+      if (thisRow === firstClickedCellIdx[0]) {
+        // 큰 인덱스에서 작은 인덱스 가는 경우도 생각해야함
+        const twoPoints = [firstClickedCellIdx[1], thisCol].sort(
+          (a, b) => a - b
+        );
+        for (let i = twoPoints[0]; i <= twoPoints[1]; i++) {
+          selectedCellIdx.push([thisRow, i]);
+        }
+      } else if (thisCol === firstClickedCellIdx[1]) {
+        const twoPoints = [thisRow, firstClickedCellIdx[0]].sort(
+          (a, b) => a - b
+        );
+        for (let i = twoPoints[0]; i <= twoPoints[1]; i++) {
+          selectedCellIdx.push([i, thisCol]);
+        }
       }
     }
-
-    paintCell(thisRow, thisCol, e);
   }
 
   function mouseUpOnCell() {
-    isMouseDown = false;
-    console.log("mouseup");
+    //만약 셀렉티드 셀인덱스 값이 없을 경우 firstClicked 친구로 반영
+    //셀렉티드셀인덱스 값을 가지고 실제 셀 데이터에 반영
+    changeCellStatus(fillMode);
+    function changeCellStatus(fillMode) {
+      if (selectedCellIdx.length !== 0) {
+        for (let cellIdx of selectedCellIdx) {
+          cells[cellIdx[0]][cellIdx[1]] = fillMode;
+          fillCell(cellIdx[0], cellIdx[1]);
+        }
+      } else {
+        cells[firstClickedCellIdx[0]][firstClickedCellIdx[1]] = fillMode;
+        fillCell(firstClickedCellIdx[0], firstClickedCellIdx[1]);
+      }
+    }
+  }
+
+  function fillCell(rIdx, cIdx) {
+    const cellStatus = cells[rIdx][cIdx];
+    const cellEl = document.querySelector(
+      `[data-row="${rIdx}"][data-col="${cIdx}"]`
+    );
+    if (cellStatus === false) {
+      cellEl.removeAttribute("class");
+    } else if (cellStatus === true) {
+      cellEl.setAttribute("class", "true");
+    } else if (cellStatus === "block") {
+      cellEl.setAttribute("class", "block");
+    }
   }
 
   //배열을 바탕으로 셀 요소 채우기
