@@ -90,8 +90,14 @@ body {
   text-align: center;
 
   font-size: 1.2em;
-  line-height: 1.8em;
+  line-height: 2.2em;
   overflow: hidden;
+  cursor: pointer;
+}
+
+.clue-container p.done {
+  background-size: cover;
+  background-image: url("../img/slash.png");
 }
 
 /* 셀 보드 */
@@ -117,6 +123,7 @@ body {
   display: inline-block;
   border-left: 0.5px solid rgb(180, 180, 180);
   border-bottom: 0.5px solid rgb(180, 180, 180);
+  cursor: pointer;
 }
 
 #board div.row > div:focus {

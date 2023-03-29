@@ -9,8 +9,8 @@ export function paintStage(puzzleArr) {
   const ROWS = answerArr.length;
   const COLS = answerArr[0].length;
 
-  styleEl.setProperty("--board-size-h", `${ROWS * 0.5 * 100}px`);
-  styleEl.setProperty("--board-size-w", `${COLS * 0.5 * 100}px`);
+  styleEl.setProperty("--board-size-h", `${ROWS * 0.5 * 80}px`);
+  styleEl.setProperty("--board-size-w", `${COLS * 0.5 * 80}px`);
   styleEl.setProperty("--row-size", ROWS);
   styleEl.setProperty("--col-size", COLS);
 
@@ -84,7 +84,6 @@ export function paintStage(puzzleArr) {
     const cellStatus = cells[thisRow][thisCol];
 
     //클릭한 위치의 로우와 칼럼 셀들만 선택할 수 있도록 하기
-
     firstClickedCellIdx = [thisRow, thisCol];
 
     //좌/우 클릭에 따라 fillMode 변경
@@ -134,7 +133,8 @@ export function paintStage(puzzleArr) {
   function mouseUpOnCell() {
     //만약 셀렉티드 셀인덱스 값이 없을 경우 firstClicked 친구로 반영
     //셀렉티드셀인덱스 값을 가지고 실제 셀 데이터에 반영
-    changeCellStatus(fillMode);
+
+    isMouseDown ? changeCellStatus(fillMode) : null;
     function changeCellStatus(fillMode) {
       if (selectedCellIdx.length !== 0) {
         for (let cellIdx of selectedCellIdx) {
@@ -227,18 +227,25 @@ export function paintStage(puzzleArr) {
       const rowClueArr = countTasks("row", COLS, i);
       //clue콘테이너 만들고 clueArr 받아서 페인팅하기
       const rowClueContainer = document.querySelector(`#row-clue .row${i}`);
-      rowClueContainer.innerHTML = rowClueArr
-        .map((count) => `<p>${count}</p>`)
-        .join("");
+      createClueCell(rowClueArr, rowClueContainer);
     }
 
     for (let i = 0; i < COLS; i++) {
       const colClueArr = countTasks("col", ROWS, i);
       //clue콘테이너 만들고 clueArr 받아서 페인팅하기
       const colClueContainer = document.querySelector(`#col-clue .col${i}`);
-      colClueContainer.innerHTML = colClueArr
-        .map((count) => `<p>${count}</p>`)
-        .join("");
+      createClueCell(colClueArr, colClueContainer);
+    }
+
+    function createClueCell(clueArr, clueContainer) {
+      clueArr.forEach((count) => {
+        const pEl = document.createElement("p");
+        pEl.innerHTML = count;
+        pEl.addEventListener("click", (e) => {
+          e.target.classList.toggle("done");
+        });
+        clueContainer.append(pEl);
+      });
     }
   }
 
