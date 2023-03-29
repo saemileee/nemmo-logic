@@ -96,7 +96,7 @@ export function paintStage(puzzleArr) {
     }
 
     if (e.button === 2) {
-      if (!cellStatus || cellStatus) {
+      if (cellStatus === false || cellStatus === true) {
         fillMode = "block";
       } else if (cellStatus === "block") {
         fillMode = false;
@@ -146,6 +146,7 @@ export function paintStage(puzzleArr) {
         fillCell(firstClickedCellIdx[0], firstClickedCellIdx[1]);
       }
     }
+    selectedCellIdx = [];
   }
 
   function fillCell(rIdx, cIdx) {
