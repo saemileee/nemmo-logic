@@ -1,7 +1,7 @@
 const gameBoard = document.getElementById("board");
 
-const ROWS = 5;
-const COLS = 5;
+const ROWS = 15;
+const COLS = 15;
 let cells = [];
 
 //2차원 배열 만들기
@@ -12,12 +12,6 @@ for (let i = 0; i < ROWS; i++) {
   const row = document.createElement("div");
   row.setAttribute("class", "row");
   gameBoard.appendChild(row);
-
-  if ((i + 1) % 5 === 0 && i > 0) {
-    row.style.borderBottomWidth = "1.5px";
-    row.style.borderStyle = "solid";
-    row.style.borderBottomColor = "black";
-  }
 
   for (let j = 0; j < COLS; j++) {
     cells[i].push(false);

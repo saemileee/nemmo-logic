@@ -9,8 +9,12 @@ export function paintStage(puzzleArr) {
   const ROWS = answerArr.length;
   const COLS = answerArr[0].length;
 
-  styleEl.setProperty("--board-size-h", `${ROWS * 0.5 * 80}px`);
-  styleEl.setProperty("--board-size-w", `${COLS * 0.5 * 80}px`);
+  const boardSizeW = ROWS * 0.5 * 80;
+  const boardSizeH = COLS * 0.5 * 80;
+  const cellSize = boardSizeW / ROWS;
+
+  styleEl.setProperty("--board-size-h", `${boardSizeW}px`);
+  styleEl.setProperty("--board-size-w", `${boardSizeH}px`);
   styleEl.setProperty("--row-size", ROWS);
   styleEl.setProperty("--col-size", COLS);
 
@@ -104,10 +108,33 @@ export function paintStage(puzzleArr) {
     }
   }
 
+  const hlRowEl = document.createElement("div");
+  const hlColEl = document.createElement("div");
+  hlRowEl.setAttribute("id", "hl_r");
+  hlColEl.setAttribute("id", "hl_c");
+
+  hlRowEl.style.width = `${boardSizeW - 3}px`;
+  hlRowEl.style.height = `${boardSizeH / ROWS}px`;
+  hlColEl.style.height = `${boardSizeH - 3}px`;
+  hlColEl.style.width = `${boardSizeW / COLS}px`;
+
+  gameBoard.append(hlRowEl);
+  gameBoard.append(hlColEl);
+
+  function moveHlEl(thisRow, thisCol) {
+    const cellEl = document.querySelector(
+      `[data-row="${thisRow}"][data-col="${thisCol}"]`
+    );
+
+    console.dir(cellEl);
+    hlRowEl.style.top = `${thisRow * cellSize}px`;
+    hlColEl.style.left = `${thisCol * cellSize}px`;
+  }
+
   function mouseOverOnCell(e) {
     const thisRow = parseInt(e.target.getAttribute("data-row"));
     const thisCol = parseInt(e.target.getAttribute("data-col"));
-
+    moveHlEl(thisRow, thisCol);
     //선택이 가능한 셀들 중 현재 마우스가 위치한 셀 인덱스 값을 기준으로 위치한 값듦 배열에 넣기
     selectedCellIdx = [];
     if (isMouseDown) {
@@ -146,6 +173,7 @@ export function paintStage(puzzleArr) {
         fillCell(firstClickedCellIdx[0], firstClickedCellIdx[1]);
       }
     }
+    isMouseDown = false;
     selectedCellIdx = [];
   }
 
