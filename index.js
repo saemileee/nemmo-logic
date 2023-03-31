@@ -9,8 +9,8 @@ app.get("/post-puzzle", (req, res) => {
   res.sendFile(__dirname + "/public/puzzlemaker.html");
 });
 
-app.use(express.static(__dirname + "public"));
-app.use(express.static(__dirname + "src"));
+app.use(express.static("public"));
+app.use(express.static("src"));
 
 app.use("/allMethod", (req, res) => {
   res.send("allMethod");
