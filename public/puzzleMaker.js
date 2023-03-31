@@ -1,7 +1,7 @@
 const gameBoard = document.getElementById("board");
 
-const ROWS = 15;
-const COLS = 15;
+const ROWS = 5;
+const COLS = 5;
 let cells = [];
 
 //2차원 배열 만들기

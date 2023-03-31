@@ -11,8 +11,8 @@ body {
 :root {
   --board-size-h: 300px;
   --board-size-w: 300px;
-  --row-size: 15;
-  --col-size: 15;
+  --row-size: 5;
+  --col-size: 5;
 }
 
 /* grid */

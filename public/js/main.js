@@ -2,7 +2,7 @@ import { paintStage } from "./paintStage.js";
 
 const puzzleTable = document.querySelector("#puzzle-table tbody");
 
-fetch("puzzle.json")
+fetch("https://saemileee.github.io/nemmo-logic/puzzle.json")
   .then((res) => res.json())
   .then((puzzleDB) => {
     let puzzleListEl = "";
