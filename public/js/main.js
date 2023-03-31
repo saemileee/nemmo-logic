@@ -1,4 +1,4 @@
-import { paintStage } from "./paintStage.js";
+import { paintStage } from "https://saemileee.github.io/nemmo-logic/public/js/paintStage.js";
 
 const puzzleTable = document.querySelector("#puzzle-table tbody");
 
