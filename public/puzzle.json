@@ -93,6 +93,7 @@
     "id": 6,
     "title": "제발 한 번만 풀어보세요.",
     "answer": [
+      [false, true, true, true, true, true, true, true, true, false],
       [true, true, true, true, true, true, true, true, true, true],
       [true, true, true, true, true, true, true, true, true, true],
       [true, true, true, true, false, true, false, false, false, true],
