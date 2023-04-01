@@ -47,6 +47,7 @@ body {
 
 #app-main > main > ul {
   display: flex;
+  display: none;
   margin: 26px 0 26px 0;
 }
 
@@ -84,12 +85,14 @@ body {
 }
 
 #app-main > main table thead tr th .sort-btn-container {
+  display: none;
   position: relative;
   top: 0.5rem;
   display: inline-block;
 }
 
 #app-main > main table thead tr th .sort-btn-container button.sort {
+  display: none;
   width: 14px;
   height: 14px;
   display: block;

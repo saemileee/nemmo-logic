@@ -61,7 +61,7 @@ export function paintStage(puzzleArr) {
   gameBoard.addEventListener("mouseleave", mouseUpOnCell);
 
   // ---------------------------
-  //| state | L-click | R-click |
+  //| status| L-click | R-click |
   //-----------------------------
   //| false |  true   | "block" |
   //-----------------------------
