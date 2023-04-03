@@ -1,20 +1,21 @@
 const express = require("express");
 const app = express();
 
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
+app.use("/", (req, res) => {
+  res.sendFile("./index.html");
+  // res.sendFile(__dirname + "/index.html");
 });
 
 app.get("/post-puzzle", (req, res) => {
   res.sendFile(__dirname + "/public/puzzlemaker.html");
 });
 
+app.get("/puzzle/:id", (req, res) => {
+  res.json("./package.json");
+});
+
 app.use(express.static("public"));
 app.use(express.static("src"));
-
-app.use("/allMethod", (req, res) => {
-  res.send("allMethod");
-});
 
 const fs = require("fs");
 
