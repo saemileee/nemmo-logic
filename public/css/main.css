@@ -6,139 +6,138 @@ body {
   color: rgb(36, 36, 36);
 }
 
-#app-main {
-  max-width: 75rem;
-  min-width: 45rem;
+#root {
+  max-width: 60rem;
+  min-width: 35rem;
   margin: 0 auto;
 }
 
-#app-main > header {
+header {
   width: 100%;
 }
 
-#app-main > header > h1 {
-  height: 5rem;
-  font-size: 3rem;
-  font-weight: bold;
+header > h1 {
   padding-top: 32px;
-  line-height: 4rem;
+  line-height: 1.5rem;
+  font-style: normal;
 }
 
-#app-main > header > p {
-  display: flex;
+header > h1 p {
+  font-size: 1rem;
+  color: rgb(121, 164, 202);
+  font-weight: 500;
+}
+header > h1 a {
+  font-size: 2rem;
+  text-decoration: none;
+  color: rgb(15, 32, 46);
+  font-weight: bold;
+}
+
+header #main-banner {
   margin-top: 2rem;
-  height: inherit;
-  font-size: 1.3rem;
-  line-height: 160%;
-}
-
-#app-main > header > p img {
-  width: 150px;
-  height: 150px;
-  margin-right: 1rem;
-}
-
-#app-main > main {
-}
-
-#app-main > main > #search {
-  display: none;
-}
-
-#app-main > main > ul {
-  display: flex;
-  display: none;
-  margin: 26px 0 26px 0;
-}
-
-#app-main > main > ul > li {
-  width: 4rem;
-  padding: 0.7rem;
-  margin-right: 8px;
-  border: 1px solid rgb(197, 202, 207);
-  border-radius: 0.4rem;
-  background-color: rgb(205, 214, 249);
-  font-size: 0.9rem;
-  text-align: center;
-  color: rgb(18, 2, 54);
-}
-
-#app-main > main table {
-  border-collapse: collapse;
+  height: 19rem;
+  width: 100%;
   border-radius: 1rem;
+  background: linear-gradient(
+    148deg,
+    rgba(17, 96, 142, 1) 0%,
+    rgba(56, 128, 171, 1) 32%,
+    rgba(123, 159, 167, 1) 100%
+  );
+}
+
+header #main-banner div {
+  padding-top: 4rem;
+  padding-left: 3rem;
+}
+
+header #main-banner div p {
+  color: aliceblue;
+  font-size: 1.3rem;
+  line-height: 140%;
+}
+header #main-banner div p:first-child {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+header #main-banner div p:nth-child(2) {
+  padding-top: 1rem;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+header #main-banner div div {
+  width: 5rem;
+  margin-top: 1rem;
+  padding: 0.6rem 0rem 0.5rem 0rem;
+  border-radius: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-align: center;
+  color: rgb(10, 54, 80);
+  background-color: rgb(255, 255, 255);
+}
+
+main {
+  margin-top: 2rem;
+}
+
+main #puzzle-count {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+main table {
+  margin-top: 1rem;
+  margin-bottom: 5rem;
+  border-collapse: collapse;
   width: 100%;
   text-indent: initial;
-  border-spacing: 2px;
   background-color: rgb(249, 249, 249);
 }
 
-#app-main > main table thead {
+main table thead {
 }
 
-#app-main > main table thead tr {
+main table thead tr {
 }
 
-#app-main > main table thead tr th {
-  border-radius: 1rem;
+main table thead tr th {
   border: 1px solid rgb(215, 226, 235);
-  height: 3rem;
+  line-height: 3rem;
 }
 
-#app-main > main table thead tr th .sort-btn-container {
-  display: none;
-  position: relative;
-  top: 0.5rem;
-  display: inline-block;
-}
-
-#app-main > main table thead tr th .sort-btn-container button.sort {
-  display: none;
-  width: 14px;
-  height: 14px;
-  display: block;
-  text-align: center;
-}
-
-#app-main > main table thead tr th.id {
+main table thead tr th.id {
   width: 5rem;
 }
 
-#app-main > main table thead tr th.status {
-  width: 5rem;
+main table thead tr th.title {
 }
 
-#app-main > main table thead tr th.title {
-}
-
-#app-main > main table thead tr th.size {
+main table thead tr th.size {
   width: 6rem;
 }
 
-#app-main > main table thead tr th.finished-count {
-  width: 6rem;
-}
-
-#app-main > main table thead tr th.recommendation {
-  width: 6rem;
-}
-#app-main > main table thead tr th.avg-time {
-  width: 6rem;
-}
-
-#app-main > main table tbody {
+main table tbody {
   display: table-row-group;
   vertical-align: middle;
 }
-#app-main > main table tbody tr {
+main table tbody tr {
   height: 2.5rem;
 }
 
-#app-main > main table tbody tr td.title {
+main table tbody tr td.title {
   padding-left: 1.5rem;
   text-align: left;
+  text-decoration: none;
 }
 
-#app-main > main table tr td {
+main table tbody tr td.title a {
+  text-decoration: none;
+}
+
+main table tr td {
   text-align: center;
   line-height: 2rem;
   padding: 0.5rem 0.75rem;
@@ -149,5 +148,5 @@ body {
   display: table-cell;
 }
 
-#app-main > footer {
+footer {
 }

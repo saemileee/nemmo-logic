@@ -1,8 +1,6 @@
 import { renderStage } from "./Stage.js";
 
-export function renderPuzzleList(puzzleDB) {
-  const $main = document.getElementsByTagName("main")[0];
-
+export function renderPuzzleList(puzzleDB, $main) {
   const $puzzleTable = document.createElement("table");
   $puzzleTable.setAttribute("id", "puzzle-table");
   $main.appendChild($puzzleTable);
@@ -25,7 +23,7 @@ export function renderPuzzleList(puzzleDB) {
 
   const $thPuzzleSize = document.createElement("th");
   $thPuzzleSize.setAttribute("class", "size");
-  $thPuzzleSize.innerHTML = "사이즈";
+  $thPuzzleSize.innerHTML = "사미즈";
   $tr.appendChild($thPuzzleSize);
 
   const $tbody = document.createElement("tbody");
@@ -49,7 +47,7 @@ export function renderPuzzleList(puzzleDB) {
 
     function puzzleListTitlesClickHandler(e) {
       e.preventDefault();
-      renderStage(data.answer, puzzleDB);
+      renderStage(data.title, data.answer, puzzleDB, $main);
       $puzzleTable.remove();
       window.history.pushState(null, "", `puzzle/${data.id}`);
     }

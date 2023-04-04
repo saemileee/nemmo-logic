@@ -1,16 +1,24 @@
 import { renderPuzzleList } from "./PuzzleList.js";
 
-export function renderStage(puzzleArr, puzzleDB) {
+export function renderStage(puzzleTitle, puzzleArr, puzzleDB, $main) {
   const styleEl = document.documentElement.style;
 
-  const $main = document.getElementsByTagName("main")[0];
   const $gamePage = document.createElement("div");
   $gamePage.setAttribute("id", "game-page-container");
   $main.appendChild($gamePage);
 
+  const $puzzleTitle = document.createElement("p");
+  $puzzleTitle.setAttribute("id", "puzzle-title");
+  $puzzleTitle.innerHTML = `${puzzleTitle}`;
+  $gamePage.appendChild($puzzleTitle);
+
+  const $gameBoardContainer = document.createElement("div");
+  $gameBoardContainer.setAttribute("id", "game-board-container");
+  $gamePage.appendChild($gameBoardContainer);
+
   const $gameContainer = document.createElement("div");
   $gameContainer.setAttribute("id", "game-grid-container");
-  $gamePage.appendChild($gameContainer);
+  $gameBoardContainer.appendChild($gameContainer);
 
   const $emptyCell = document.createElement("div");
   $emptyCell.setAttribute("id", "empty-cell");
@@ -331,15 +339,9 @@ export function renderStage(puzzleArr, puzzleDB) {
   $submitBtn.innerHTML = "제출";
   $gamePage.appendChild($submitBtn);
 
-  // window.onpopstate = () => {
-  //   const puzzleList = document.getElementById("puzzle-list");
-  //   puzzleList.style.display = "block";
-  //   answerArr = [];
-  //   cells = [];
-  // };
-
+  //뒤로가기 기능
   window.onpopstate = () => {
-    renderPuzzleList(puzzleDB);
+    renderPuzzleList(puzzleDB, $main);
     $gamePage.remove();
   };
 }
