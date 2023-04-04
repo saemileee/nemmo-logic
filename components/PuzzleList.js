@@ -46,11 +46,12 @@ export function renderPuzzleList(puzzleDB) {
     $tdPuzzleTitle.setAttribute("data-id", `${data.id}`);
     $tdPuzzleTitle.innerHTML = `<a href="#">${data.title}</a>`;
     $tr.appendChild($tdPuzzleTitle);
+
     function puzzleListTitlesClickHandler(e) {
       e.preventDefault();
-      renderStage(data.answer);
+      renderStage(data.answer, puzzleDB);
+      $puzzleTable.remove();
       window.history.pushState(null, "", `puzzle/${data.id}`);
-      window.onpopstate = () => {};
     }
     $tdPuzzleTitle.addEventListener("click", puzzleListTitlesClickHandler);
 

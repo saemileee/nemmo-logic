@@ -1,4 +1,6 @@
-export function renderStage(puzzleArr) {
+import { renderPuzzleList } from "./PuzzleList.js";
+
+export function renderStage(puzzleArr, puzzleDB) {
   const styleEl = document.documentElement.style;
 
   const $main = document.getElementsByTagName("main")[0];
@@ -335,4 +337,9 @@ export function renderStage(puzzleArr) {
   //   answerArr = [];
   //   cells = [];
   // };
+
+  window.onpopstate = () => {
+    renderPuzzleList(puzzleDB);
+    $gamePage.remove();
+  };
 }
