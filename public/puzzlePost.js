@@ -1,3 +1,4 @@
+export const render = () => `
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -45,17 +46,26 @@
           <li>20*20</li>
           <li>25*25</li>
         </ul>
-        <!---->
+        <!-- 게임 페이지 -->
+        <div id="game-page-container"
+          <div id="game-grid-container">
+            <div id="empty-cell" class="grid-box"></div>
+            <div id="col-clue" class="grid-box"></div>
+            <div id="row-clue" class="grid-box"></div>
+            <div id="board" class="grid-box"></div>
+          </div>
+        </div>
       </main>
       <!-- 푸터 -->
       <footer>
         <p>© 2023</p>
       </footer>
     </div>
-    <!-- <script
+    <script
       type="module"
       src="https://saemileee.github.io/nemmo-logic/public/js/main.js"
-    ></script> -->
-    <script type="module" src="./public/js/main.js"></script>
+    ></script>
   </body>
 </html>
+
+`;
