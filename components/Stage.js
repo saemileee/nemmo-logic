@@ -1,17 +1,31 @@
 import { renderPuzzleList } from "./PuzzleList.js";
 
-export function renderStage(puzzleTitle, puzzleArr, puzzleDB, $main) {
+export function renderStage(data, puzzleDB, $main) {
   const styleEl = document.documentElement.style;
 
   const $gamePage = document.createElement("div");
   $gamePage.setAttribute("id", "game-page-container");
   $main.appendChild($gamePage);
 
-  const $puzzleTitle = document.createElement("p");
-  $puzzleTitle.setAttribute("id", "puzzle-title");
-  $puzzleTitle.innerHTML = `${puzzleTitle}`;
-  $gamePage.appendChild($puzzleTitle);
+  //제목부분
+  const $gamePageHeader = document.createElement("div");
+  $gamePageHeader.setAttribute("id", "game-page-header");
+  $gamePage.appendChild($gamePageHeader);
 
+  const $puzzleId = document.createElement("span");
+  $puzzleId.innerHTML = `${data.id}번`;
+  $gamePageHeader.appendChild($puzzleId);
+
+  const $puzzleTitle = document.createElement("span");
+  $puzzleTitle.innerHTML = `${data.title}`;
+  $gamePageHeader.appendChild($puzzleTitle);
+
+  const $puzzleSize = document.createElement("span");
+  $puzzleSize.innerHTML = `${data.size}`;
+  $gamePageHeader.appendChild($puzzleSize);
+
+
+  //게임보드 부분
   const $gameBoardContainer = document.createElement("div");
   $gameBoardContainer.setAttribute("id", "game-board-container");
   $gamePage.appendChild($gameBoardContainer);
@@ -40,7 +54,7 @@ export function renderStage(puzzleTitle, puzzleArr, puzzleDB, $main) {
   $board.setAttribute("class", "grid-box");
   $gameContainer.appendChild($board);
 
-  let answerArr = puzzleArr;
+  let answerArr = data.answer;
 
   const ROWS = answerArr.length;
   const COLS = answerArr[0].length;
@@ -336,7 +350,7 @@ export function renderStage(puzzleTitle, puzzleArr, puzzleDB, $main) {
   const $submitBtn = document.createElement("button");
   $submitBtn.setAttribute("id", "submit");
   $submitBtn.addEventListener("click", submitAnswer);
-  $submitBtn.innerHTML = "제출";
+  $submitBtn.innerHTML = "제출하기";
   $gamePage.appendChild($submitBtn);
 
   //뒤로가기 기능

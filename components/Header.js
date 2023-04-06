@@ -12,6 +12,7 @@ export default function renderHeader() {
 담신믄 미제 넴모넴모 멈무미믜 저주로 </br> 넴모넴모 퍼즐믈 풀머먀만
 돔그란 글자를 칠수 밌습니다.</p>
 <div>멈멈!</div></div>
+<img src="public/img/neommo-dog.png">
 `;
   $header.appendChild($mainBanner);
 }

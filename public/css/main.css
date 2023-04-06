@@ -39,17 +39,13 @@ header #main-banner {
   height: 19rem;
   width: 100%;
   border-radius: 1rem;
-  background: linear-gradient(
-    148deg,
-    rgba(17, 96, 142, 1) 0%,
-    rgba(56, 128, 171, 1) 32%,
-    rgba(123, 159, 167, 1) 100%
-  );
+  background-color: #72b9e4;
+  background-image: linear-gradient(135deg, #72b9e4 0%, #9599e2 100%);
 }
 
 header #main-banner div {
   padding-top: 4rem;
-  padding-left: 3rem;
+  padding-left: 4rem;
 }
 
 header #main-banner div p {
@@ -65,6 +61,13 @@ header #main-banner div p:nth-child(2) {
   padding-top: 1rem;
   font-size: 1rem;
   font-weight: 300;
+}
+
+header #main-banner img {
+  position: relative;
+  top: -20rem;
+  left: 34rem;
+  width: 360px;
 }
 
 header #main-banner div div {

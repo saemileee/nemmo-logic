@@ -1,6 +1,11 @@
 import { renderStage } from "./Stage.js";
 
 export function renderPuzzleList(puzzleDB, $main) {
+  const $puzzleListCount = document.createElement("p");
+  $puzzleListCount.setAttribute("id", "puzzle-count");
+  $puzzleListCount.innerHTML = `${puzzleDB.length}개믜 문제`;
+  $main.appendChild($puzzleListCount);
+
   const $puzzleTable = document.createElement("table");
   $puzzleTable.setAttribute("id", "puzzle-table");
   $main.appendChild($puzzleTable);
@@ -47,9 +52,11 @@ export function renderPuzzleList(puzzleDB, $main) {
 
     function puzzleListTitlesClickHandler(e) {
       e.preventDefault();
-      renderStage(data.title, data.answer, puzzleDB, $main);
       $puzzleTable.remove();
-      window.history.pushState(null, "", `puzzle/${data.id}`);
+      $puzzleListCount.remove();
+      renderStage(data, puzzleDB, $main);
+
+      window.history.pushState(null, "", `puzzles/${data.id}`);
     }
     $tdPuzzleTitle.addEventListener("click", puzzleListTitlesClickHandler);
 
