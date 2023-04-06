@@ -16,4 +16,4 @@ app.use("/puzzles", puzzlesRouter);
 
 // app.use("/create-puzzle", puzzleMakerRouter);
 
-app.listen(process.env.PORT || 3030, () => console.log("Server running..."));
+app.listen(process.env.PORT || 8000, () => console.log("Server running..."));
