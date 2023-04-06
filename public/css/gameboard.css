@@ -114,7 +114,7 @@ main #game-page-container #game-grid-container {
 }
 
 #col-clue .clue-container p {
-  border-top: 1px solid black;
+  border-top: 1px solid var(--cell-border-color);
 }
 
 #row-clue {
@@ -151,7 +151,7 @@ main #game-page-container #game-grid-container {
   text-align: center;
 
   font-size: 1.2em;
-  line-height: 2.2em;
+  line-height: 1.8em;
   overflow: hidden;
   cursor: pointer;
   color: rgb(54, 42, 49);
@@ -180,7 +180,7 @@ main #game-page-container #game-grid-container {
 
 #board div.row > div {
   display: inline-block;
-  border-left: 0.5px solid rgb(180, 180, 180);
+  border-right: 0.5px solid rgb(180, 180, 180);
   border-bottom: 0.5px solid rgb(180, 180, 180);
   cursor: pointer;
 }

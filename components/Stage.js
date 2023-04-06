@@ -24,7 +24,6 @@ export function renderStage(data, puzzleDB, $main) {
   $puzzleSize.innerHTML = `${data.size}`;
   $gamePageHeader.appendChild($puzzleSize);
 
-
   //게임보드 부분
   const $gameBoardContainer = document.createElement("div");
   $gameBoardContainer.setAttribute("id", "game-board-container");
@@ -59,8 +58,8 @@ export function renderStage(data, puzzleDB, $main) {
   const ROWS = answerArr.length;
   const COLS = answerArr[0].length;
 
-  const boardSizeW = ROWS * 0.5 * 80;
-  const boardSizeH = COLS * 0.5 * 80;
+  const boardSizeW = ROWS * 0.5 * 60;
+  const boardSizeH = COLS * 0.5 * 60;
   const cellSize = boardSizeW / ROWS;
 
   styleEl.setProperty("--board-size-h", `${boardSizeW}px`);
@@ -98,16 +97,18 @@ export function renderStage(data, puzzleDB, $main) {
       cell.addEventListener("mouseup", mouseUpOnCell);
 
       //5칸마다 굵은 border
-      if (j % 5 === 0 && j > 0) {
-        cell.style.borderLeftWidth = "1.5px";
-        cell.style.borderLeftColor = "black";
+      if (i % 5 === 4 && i > 0 && i !== ROWS - 1) {
+        cell.style.borderBottomWidth = "1.5px";
+        cell.style.borderBottomColor = "black";
       }
-      if (i % 5 === 0 && i > 0) {
-        cell.style.borderTopWidth = "1.5px";
-        cell.style.borderTopColor = "black";
+
+      if (j % 5 === 4 && j > 0 && j !== COLS - 1) {
+        cell.style.borderRightWidth = "1.5px";
+        cell.style.borderRightColor = "black";
       }
     }
   }
+
   $board.addEventListener("mouseleave", mouseUpOnCell);
 
   // ---------------------------
@@ -262,12 +263,6 @@ export function renderStage(data, puzzleDB, $main) {
       const clueContainer = document.createElement("div");
       clueContainer.setAttribute("class", `${matrixName}${i} clue-container`);
       clue.appendChild(clueContainer);
-      //5칸마다 굵은 border
-      if (i % 5 === 0 && matrixName === "row") {
-        clueContainer.style.borderTopWidth = "1.5px";
-      } else if (i % 5 === 0 && matrixName === "col") {
-        clueContainer.style.borderLeftWidth = "1.5px";
-      }
     }
     return clue;
   }
@@ -306,6 +301,11 @@ export function renderStage(data, puzzleDB, $main) {
       //clue콘테이너 만들고 clueArr 받아서 페인팅하기
       const rowClueContainer = document.querySelector(`#row-clue .row${i}`);
       createClueCell(rowClueArr, rowClueContainer);
+      //5칸마다 굵은 border
+      if (i % 5 === 4 && i > 0) {
+        rowClueContainer.style.borderBottomWidth = "1.5px";
+        rowClueContainer.style.borderBottomColor = "black";
+      }
     }
 
     for (let i = 0; i < COLS; i++) {
@@ -313,6 +313,10 @@ export function renderStage(data, puzzleDB, $main) {
       //clue콘테이너 만들고 clueArr 받아서 페인팅하기
       const colClueContainer = document.querySelector(`#col-clue .col${i}`);
       createClueCell(colClueArr, colClueContainer);
+      if (i % 5 === 4 && i > 0) {
+        colClueContainer.style.borderRightWidth = "1.5px";
+        colClueContainer.style.borderRightColor = "black";
+      }
     }
 
     function createClueCell(clueArr, clueContainer) {
