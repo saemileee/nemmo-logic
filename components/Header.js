@@ -1,7 +1,15 @@
+import { renderMain } from "../public/js/app.js";
+
 export default function renderHeader() {
   const $header = document.getElementsByTagName("header")[0];
   const $h1 = document.createElement("h1");
-  $h1.innerHTML = `<p>Welcome to</p><a href="https://nemmologic-saemileee.koyeb.app/">넴모로직</a>`;
+  $h1.innerHTML = `<p>Welcome to</p><p>넴모로직</p>`;
+  $h1.addEventListener("click", () => {
+    const $main = document.getElementsByTagName("main")[0];
+    window.history.pushState(null, "", `/`);
+    $main.remove();
+    renderMain();
+  });
   $header.appendChild($h1);
 
   const $mainBanner = document.createElement("div");
