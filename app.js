@@ -2,7 +2,6 @@ const express = require("express");
 
 const app = express();
 
-const puzzleMakerRouter = require("./routes/puzzleMaker");
 const puzzlesRouter = require("./routes/puzzles");
 
 app.use("/public", express.static(__dirname + "/public"));
@@ -13,7 +12,5 @@ app.get("/", (req, res) => {
 });
 
 app.use("/puzzles", puzzlesRouter);
-
-// app.use("/create-puzzle", puzzleMakerRouter);
 
 app.listen(process.env.PORT || 8000, () => console.log("Server running..."));

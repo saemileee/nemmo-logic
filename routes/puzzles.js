@@ -17,4 +17,8 @@ router.get("/:puzzleId", (req, res, next) => {
   res.sendFile(path.join(__dirname, "../index.html"));
 });
 
+router.get("/post", (req, res, next) => {
+  res.sendFile(path.join(__dirname, "../index.html"));
+});
+
 module.exports = router;

@@ -227,6 +227,8 @@ export function renderStage(data, puzzleDB, $main) {
     selectedCellIdx = [];
   }
 
+  //배열을 바탕으로 셀 요소 채우기
+
   function fillCell(rIdx, cIdx) {
     const cellStatus = cells[rIdx][cIdx];
     const cellEl = document.querySelector(
@@ -238,18 +240,6 @@ export function renderStage(data, puzzleDB, $main) {
       cellEl.setAttribute("class", "true");
     } else if (cellStatus === "block") {
       cellEl.setAttribute("class", "block");
-    }
-  }
-
-  //배열을 바탕으로 셀 요소 채우기
-  function paintCell(row, col, e) {
-    const cellStatus = cells[row][col];
-    if (cellStatus === false) {
-      e.target.removeAttribute("class");
-    } else if (cellStatus === true) {
-      e.target.setAttribute("class", "true");
-    } else if (cellStatus === "block") {
-      e.target.setAttribute("class", "block");
     }
   }
 
