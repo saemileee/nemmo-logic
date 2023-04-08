@@ -64,9 +64,9 @@ export function renderPost($main) {
     createGameBoardByMatrixSize();
   }
 
-  let cells = [];
-
+  let answerCells = [];
   function createGameBoardByMatrixSize() {
+    let cells = [];
     const boardSizeW = ROWS * 0.5 * 60;
     const boardSizeH = COLS * 0.5 * 60;
 
@@ -163,19 +163,6 @@ export function renderPost($main) {
       }
     }
 
-    const hlRowEl = document.createElement("div");
-    const hlColEl = document.createElement("div");
-    hlRowEl.setAttribute("id", "hl_r");
-    hlColEl.setAttribute("id", "hl_c");
-
-    hlRowEl.style.width = `${boardSizeW}px`;
-    hlRowEl.style.height = `${boardSizeH / ROWS}px`;
-    hlColEl.style.height = `${boardSizeH}px`;
-    hlColEl.style.width = `${boardSizeW / COLS}px`;
-
-    $board.append(hlRowEl);
-    $board.append(hlColEl);
-
     function mouseOverOnCell(e) {
       const thisRow = parseInt(e.target.getAttribute("data-row"));
       const thisCol = parseInt(e.target.getAttribute("data-col"));
@@ -219,6 +206,7 @@ export function renderPost($main) {
       }
       isMouseDown = false;
       selectedCellIdx = [];
+      answerCells = cells;
     }
 
     function fillCell(rIdx, cIdx) {
@@ -315,15 +303,23 @@ export function renderPost($main) {
       }
     }
   }
-  //답안 제출
-  function submitPost(e) {
-    console.table(cells);
-  }
 
-  //제출버튼
-  const $submitBtn = document.createElement("button");
-  $submitBtn.setAttribute("id", "submit");
-  $submitBtn.addEventListener("click", submitPost);
-  $submitBtn.innerHTML = "업로드";
-  $gamePage.appendChild($submitBtn);
+  function renderPostSubmitBtn() {
+    //답안 제출
+    function submitPost(e) {
+      const puzzle = {
+        title: "random",
+        answer: answerCells,
+      };
+      console.log(JSON.stringify(puzzle));
+    }
+
+    //제출버튼
+    const $submitBtn = document.createElement("button");
+    $submitBtn.setAttribute("id", "submit");
+    $submitBtn.addEventListener("click", submitPost);
+    $submitBtn.innerHTML = "업로드";
+    $gamePage.appendChild($submitBtn);
+  }
+  renderPostSubmitBtn();
 }
