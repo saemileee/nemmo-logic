@@ -346,10 +346,4 @@ export function renderStage(data, puzzleDB, $main) {
   $submitBtn.addEventListener("click", submitAnswer);
   $submitBtn.innerHTML = "제출하기";
   $gamePage.appendChild($submitBtn);
-
-  //뒤로가기 기능
-  window.onpopstate = () => {
-    renderPuzzleList(puzzleDB, $main);
-    $gamePage.remove();
-  };
 }

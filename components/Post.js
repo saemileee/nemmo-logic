@@ -64,18 +64,16 @@ export function renderPost($main) {
     createGameBoardByMatrixSize();
   }
 
+  let cells = [];
+
   function createGameBoardByMatrixSize() {
-    console.log(ROWS, COLS);
     const boardSizeW = ROWS * 0.5 * 60;
     const boardSizeH = COLS * 0.5 * 60;
-    const cellSize = boardSizeW / ROWS;
 
     styleEl.setProperty("--board-size-h", `${boardSizeW}px`);
     styleEl.setProperty("--board-size-w", `${boardSizeH}px`);
     styleEl.setProperty("--row-size", ROWS);
     styleEl.setProperty("--col-size", COLS);
-
-    let cells = [];
 
     //2차원 배열 만들기
     for (let i = 0; i < ROWS; i++) {
@@ -131,7 +129,6 @@ export function renderPost($main) {
     //드래그 시
     let fillMode = false;
     let isMouseDown = false;
-    // let isFillMode = false;
 
     //클릭한 위치의 로우와 칼럼 셀들만 선택할 수 있도록 하기
     let firstClickedCellIdx = [];
@@ -171,22 +168,13 @@ export function renderPost($main) {
     hlRowEl.setAttribute("id", "hl_r");
     hlColEl.setAttribute("id", "hl_c");
 
-    hlRowEl.style.width = `${boardSizeW - 3}px`;
+    hlRowEl.style.width = `${boardSizeW}px`;
     hlRowEl.style.height = `${boardSizeH / ROWS}px`;
-    hlColEl.style.height = `${boardSizeH - 3}px`;
+    hlColEl.style.height = `${boardSizeH}px`;
     hlColEl.style.width = `${boardSizeW / COLS}px`;
 
     $board.append(hlRowEl);
     $board.append(hlColEl);
-
-    //   function moveHlEl(thisRow, thisCol) {
-    //     const cellEl = document.querySelector(
-    //       `[data-row="${thisRow}"][data-col="${thisCol}"]`
-    //     );
-
-    //     hlRowEl.style.top = `${thisRow * cellSize}px`;
-    //     hlColEl.style.left = `${thisCol * cellSize}px`;
-    //   }
 
     function mouseOverOnCell(e) {
       const thisRow = parseInt(e.target.getAttribute("data-row"));
@@ -249,8 +237,8 @@ export function renderPost($main) {
     }
 
     //힌트 컨테이너 만들기
-    const rowClue = createClue("row", ROWS);
-    const colClue = createClue("col", COLS);
+    createClue("row", ROWS);
+    createClue("col", COLS);
 
     function createClue(matrixName, matrix) {
       const clue = document.getElementById(`${matrixName}-clue`);
@@ -327,4 +315,15 @@ export function renderPost($main) {
       }
     }
   }
+  //답안 제출
+  function submitPost(e) {
+    console.table(cells);
+  }
+
+  //제출버튼
+  const $submitBtn = document.createElement("button");
+  $submitBtn.setAttribute("id", "submit");
+  $submitBtn.addEventListener("click", submitPost);
+  $submitBtn.innerHTML = "업로드";
+  $gamePage.appendChild($submitBtn);
 }
