@@ -21,7 +21,7 @@ export function renderMain() {
     Main();
   }
   if (Number(currentPathname.charAt(currentPathname.length - 1))) {
-    fetch("../public/puzzle.json")
+    fetch("/api/data")
       .then((data) => data.json())
       .then((puzzleDB) => {
         const puzzleID = Number(currentPathname.split("/")[2]);

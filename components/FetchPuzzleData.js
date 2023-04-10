@@ -4,7 +4,7 @@ import { renderPuzzleList } from "./PuzzleList.js";
 import { renderStage } from "./Stage.js";
 
 export function fetchPuzzleData($main) {
-  fetch("https://saemileee.github.io/nemmo-logic/public/puzzle.json")
+  fetch("/api/data")
     .then((res) => res.json())
     .then((puzzleDB) => {
       renderPuzzleList(puzzleDB, $main);
