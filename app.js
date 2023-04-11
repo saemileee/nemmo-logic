@@ -6,7 +6,7 @@ const { Post } = require("./models");
 
 //
 mongoose.connect(
-  "***REMOVED***",
+  "***REMOVED***
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
