@@ -1,15 +1,17 @@
-const { Schema } = require("mongoose");
+const mongoose = require("mongoose");
+const id = require("./types/short-id");
+const { Schema } = mongoose;
 
 const PostSchema = new Schema({
-  id: { type: Number, required: true },
+  id,
   title: { type: String, required: true },
-  answer: { type: Array, require: true },
+  answer: { type: Array, required: true },
   status: { type: Boolean },
   size: { type: String, required: true },
   recommendation: { type: Number },
   avgTime: { type: Number },
   finishedCount: { type: Number },
-  show: { type: Boolean, required: true },
+  show: { type: Boolean },
 });
 
 module.exports = PostSchema;

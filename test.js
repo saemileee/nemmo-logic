@@ -8,4 +8,4 @@ app.get("/", (req, res) => {
 
 app.use("/puzzles", puzzlesRouter);
 
-app.listen(process.env.PORT || 8000, () => console.log("Server running..."));
+app.listen(process.env.PORT || 8080, () => console.log("Listening on 8080"));

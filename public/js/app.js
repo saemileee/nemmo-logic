@@ -19,18 +19,16 @@ export function renderMain() {
   $root.appendChild($main);
   if (currentPathname === "/") {
     Main();
-  }
-  if (Number(currentPathname.charAt(currentPathname.length - 1))) {
+  } else if (currentPathname === "/puzzles/post") {
+    renderPost($main);
+  } else {
     fetch("/api/data")
       .then((data) => data.json())
       .then((puzzleDB) => {
-        const puzzleID = Number(currentPathname.split("/")[2]);
+        const puzzleID = currentPathname.split("/")[2];
         const data = puzzleDB.find((puzzle) => puzzle.id === puzzleID);
         renderStage(data, puzzleDB, $main);
       });
-  }
-  if (currentPathname === "/puzzles/post") {
-    renderPost($main);
   }
 }
 

@@ -1,17 +1,66 @@
+import { renderStage } from "../../components/Stage.js";
+
 export function renderPost($main) {
+  let ROWS = 5;
+  let COLS = 5;
+
   const styleEl = document.documentElement.style;
 
   const $gamePage = document.createElement("div");
   $gamePage.setAttribute("id", "game-page-container");
   $main.appendChild($gamePage);
 
-  const $rowSizeInput = document.createElement("input");
-  $rowSizeInput.setAttribute("id", "row-size-input");
-  $gamePage.appendChild($rowSizeInput);
+  const $topInputsContainer = document.createElement("div");
+  $topInputsContainer.setAttribute("class", "top-inputs-container");
+  $gamePage.appendChild($topInputsContainer);
+
+  const $titleLabel = document.createElement("label");
+  $titleLabel.setAttribute("for", "title-input");
+  $topInputsContainer.appendChild($titleLabel);
+  $titleLabel.innerHTML = "제목";
+
+  const $titleInput = document.createElement("input");
+  $titleInput.setAttribute("id", "title-input");
+  $titleInput.setAttribute("placeholder", "제목을 입력해 주세요.");
+  $topInputsContainer.appendChild($titleInput);
+
+  const $sizeLabel = document.createElement("label");
+  $sizeLabel.setAttribute("for", "col-size-input");
+  $topInputsContainer.appendChild($sizeLabel);
+  $sizeLabel.innerHTML = "사이즈";
+
+  const $sizeInputsDiv = document.createElement("div");
+  $topInputsContainer.appendChild($sizeInputsDiv);
+
+  const $colSizeLabel = document.createElement("label");
+  $colSizeLabel.setAttribute("for", "col-size-input");
+  $colSizeLabel.setAttribute("class", "size-label");
+  $sizeInputsDiv.appendChild($colSizeLabel);
+  $colSizeLabel.innerHTML = "가로";
 
   const $colSizeInput = document.createElement("input");
   $colSizeInput.setAttribute("id", "col-size-input");
-  $gamePage.appendChild($colSizeInput);
+  $colSizeInput.setAttribute("type", "number");
+  $colSizeInput.setAttribute("name", "col-size");
+  $colSizeInput.setAttribute("value", `${COLS}`);
+  $colSizeInput.setAttribute("min", "5");
+  $colSizeInput.setAttribute("max", "50");
+  $sizeInputsDiv.appendChild($colSizeInput);
+
+  const $rowSizeLabel = document.createElement("label");
+  $rowSizeLabel.setAttribute("for", "row-size-input");
+  $rowSizeLabel.setAttribute("class", "size-label");
+  $sizeInputsDiv.appendChild($rowSizeLabel);
+  $rowSizeLabel.innerHTML = "세로";
+
+  const $rowSizeInput = document.createElement("input");
+  $rowSizeInput.setAttribute("id", "row-size-input");
+  $rowSizeInput.setAttribute("type", "number");
+  $rowSizeInput.setAttribute("name", "row-size");
+  $rowSizeInput.setAttribute("value", `${ROWS}`);
+  $rowSizeInput.setAttribute("min", "5");
+  $rowSizeInput.setAttribute("max", "50");
+  $sizeInputsDiv.appendChild($rowSizeInput);
 
   //게임보드 부분
   const $gameBoardContainer = document.createElement("div");
@@ -42,9 +91,7 @@ export function renderPost($main) {
   $board.setAttribute("class", "grid-box");
   $gameContainer.appendChild($board);
 
-  let ROWS = 0;
-  let COLS = 0;
-
+  createGameBoardByMatrixSize();
   $rowSizeInput.addEventListener("change", (e) => {
     sizeInputChangeHandler("ROWS", e);
   });
@@ -67,8 +114,24 @@ export function renderPost($main) {
   let answerCells = [];
   function createGameBoardByMatrixSize() {
     let cells = [];
-    const boardSizeW = ROWS * 0.5 * 60;
-    const boardSizeH = COLS * 0.5 * 60;
+    let boardSizeW = ROWS * 30;
+    let boardSizeH = COLS * 30;
+    if (ROWS >= 25 || COLS >= 25) {
+      boardSizeW = ROWS * 20;
+      boardSizeH = COLS * 20;
+      styleEl.setProperty("--clue-font-size", `75%`);
+    }
+    if (ROWS >= 40 || COLS >= 40) {
+      boardSizeW = ROWS * 15;
+      boardSizeH = COLS * 15;
+      styleEl.setProperty("--clue-font-size", `50%`);
+    }
+
+    if (ROWS >= 50 || COLS >= 50) {
+      boardSizeW = ROWS * 13;
+      boardSizeH = COLS * 13;
+      styleEl.setProperty("--clue-font-size", `40%`);
+    }
 
     styleEl.setProperty("--board-size-h", `${boardSizeW}px`);
     styleEl.setProperty("--board-size-w", `${boardSizeH}px`);
@@ -295,9 +358,9 @@ export function renderPost($main) {
         clueArr.forEach((count) => {
           const pEl = document.createElement("p");
           pEl.innerHTML = count;
-          pEl.addEventListener("click", (e) => {
-            e.target.classList.toggle("done");
-          });
+          // pEl.addEventListener("click", (e) => {
+          //   e.target.classList.toggle("done");
+          // });
           clueContainer.append(pEl);
         });
       }
@@ -305,16 +368,39 @@ export function renderPost($main) {
   }
 
   function renderPostSubmitBtn() {
-    //답안 제출
-    function submitPost(e) {
-      const puzzle = {
-        title: "random",
+    //포스팅 버튼
+    async function submitPost() {
+      const post = {
+        title: $titleInput.value,
         answer: answerCells,
+        status: true,
+        size: `${COLS}*${ROWS}`,
+        recommendation: 0,
+        avgTime: 0,
+        finishedCount: 0,
+        show: true,
       };
-      console.log(JSON.stringify(puzzle));
+
+      try {
+        const response = await fetch("/api/data", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(post),
+        });
+        if (response.ok) {
+          // DB에 데이터가 성공적으로 삽입되면 성공 메시지를 출력합니다.
+          alert("퍼즐이 성공적으로 저장되었습니다.");
+          window.location.href = "/";
+        } else {
+          alert("내용을 입력해 주세요.");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("예기치 못한 오류가 발생했습니다.");
+      }
     }
 
-    //제출버튼
+    //포스팅 버튼
     const $submitBtn = document.createElement("button");
     $submitBtn.setAttribute("id", "submit");
     $submitBtn.addEventListener("click", submitPost);

@@ -13,6 +13,7 @@ body {
   --row-size: 5;
   --col-size: 5;
   --cell-border-color: rgb(106, 137, 151);
+  --clue-font-size: 1.2rem;
 }
 
 /* grid */
@@ -150,7 +151,7 @@ main #game-page-container #game-grid-container {
   height: calc(var(--board-size-h) / var(--row-size));
   text-align: center;
 
-  font-size: 1.2em;
+  font-size: var(--clue-font-size);
   line-height: 1.8em;
   overflow: hidden;
   cursor: pointer;
