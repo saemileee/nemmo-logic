@@ -382,7 +382,7 @@ export function renderPost($main) {
       };
 
       try {
-        const response = await fetch("/api/data", {
+        const response = await fetch("/api/posts", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(post),

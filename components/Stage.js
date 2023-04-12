@@ -1,6 +1,6 @@
 import { renderPuzzleList } from "./PuzzleList.js";
 
-export function renderStage(data, puzzleDB, $main) {
+export function renderStage(data, $main) {
   const styleEl = document.documentElement.style;
 
   const $gamePage = document.createElement("div");

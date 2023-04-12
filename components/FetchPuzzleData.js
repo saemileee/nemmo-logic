@@ -4,7 +4,7 @@ import { renderPuzzleList } from "./PuzzleList.js";
 import { renderStage } from "./Stage.js";
 
 export function fetchPuzzleData($main) {
-  fetch("/api/data")
+  fetch("/api/posts")
     .then((res) => res.json())
     .then((puzzleDB) => {
       renderPuzzleList(puzzleDB, $main);

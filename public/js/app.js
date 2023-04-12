@@ -22,12 +22,10 @@ export function renderMain() {
   } else if (currentPathname === "/puzzles/post") {
     renderPost($main);
   } else {
-    fetch("/api/data")
+    fetch(`/api/posts/${currentPathname.split("/")[2]}`)
       .then((data) => data.json())
-      .then((puzzleDB) => {
-        const puzzleID = currentPathname.split("/")[2];
-        const data = puzzleDB.find((puzzle) => puzzle.id === puzzleID);
-        renderStage(data, puzzleDB, $main);
+      .then((post) => {
+        renderStage(post, $main);
       });
   }
 }

@@ -54,7 +54,7 @@ export function renderPuzzleList(puzzleDB, $main) {
       e.preventDefault();
       $puzzleTable.remove();
       $puzzleListCount.remove();
-      renderStage(data, puzzleDB, $main);
+      renderStage(data, $main);
 
       window.history.pushState(null, "", `puzzles/${data.id}`);
     }
