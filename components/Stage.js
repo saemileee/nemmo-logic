@@ -58,16 +58,32 @@ export function renderStage(data, $main) {
   const ROWS = answerArr.length;
   const COLS = answerArr[0].length;
 
-  const boardSizeW = ROWS * 0.5 * 60;
-  const boardSizeH = COLS * 0.5 * 60;
-  const cellSize = boardSizeW / ROWS;
+  let boardSizeW = ROWS * 30;
+  let boardSizeH = COLS * 30;
+
+  let cells = [];
+
+  if (ROWS >= 25 || COLS >= 25) {
+    boardSizeW = ROWS * 20;
+    boardSizeH = COLS * 20;
+    styleEl.setProperty("--clue-font-size", `100%`);
+  }
+  if (ROWS >= 40 || COLS >= 40) {
+    boardSizeW = ROWS * 15;
+    boardSizeH = COLS * 15;
+    styleEl.setProperty("--clue-font-size", `50%`);
+  }
+
+  if (ROWS >= 50 || COLS >= 50) {
+    boardSizeW = ROWS * 13;
+    boardSizeH = COLS * 13;
+    styleEl.setProperty("--clue-font-size", `40%`);
+  }
 
   styleEl.setProperty("--board-size-h", `${boardSizeW}px`);
   styleEl.setProperty("--board-size-w", `${boardSizeH}px`);
   styleEl.setProperty("--row-size", ROWS);
   styleEl.setProperty("--col-size", COLS);
-
-  let cells = [];
 
   $gamePage.removeAttribute("style");
   //2차원 배열 만들기
@@ -159,32 +175,31 @@ export function renderStage(data, $main) {
     }
   }
 
-  const hlRowEl = document.createElement("div");
-  const hlColEl = document.createElement("div");
-  hlRowEl.setAttribute("id", "hl_r");
-  hlColEl.setAttribute("id", "hl_c");
+  // const hlRowEl = document.createElement("div");
+  // const hlColEl = document.createElement("div");
+  // hlRowEl.setAttribute("id", "hl_r");
+  // hlColEl.setAttribute("id", "hl_c");
 
-  hlRowEl.style.width = `${boardSizeW - 3}px`;
-  hlRowEl.style.height = `${boardSizeH / ROWS}px`;
-  hlColEl.style.height = `${boardSizeH - 3}px`;
-  hlColEl.style.width = `${boardSizeW / COLS}px`;
+  // hlRowEl.style.width = `${boardSizeW - 3}px`;
+  // hlRowEl.style.height = `${boardSizeH / ROWS}px`;
+  // hlColEl.style.height = `${boardSizeH - 3}px`;
+  // hlColEl.style.width = `${boardSizeW / COLS}px`;
 
-  $board.append(hlRowEl);
-  $board.append(hlColEl);
+  // $board.append(hlRowEl);
+  // $board.append(hlColEl);
 
-  function moveHlEl(thisRow, thisCol) {
-    const cellEl = document.querySelector(
-      `[data-row="${thisRow}"][data-col="${thisCol}"]`
-    );
+  // function moveHlEl(thisRow, thisCol) {
+  //   const cellEl = document.querySelector(
+  //     `[data-row="${thisRow}"][data-col="${thisCol}"]`
+  //   );
 
-    hlRowEl.style.top = `${thisRow * cellSize}px`;
-    hlColEl.style.left = `${thisCol * cellSize}px`;
-  }
+  //   hlRowEl.style.top = `${thisRow * cellSize}px`;
+  //   hlColEl.style.left = `${thisCol * cellSize}px`;
+  // }
 
   function mouseOverOnCell(e) {
     const thisRow = parseInt(e.target.getAttribute("data-row"));
     const thisCol = parseInt(e.target.getAttribute("data-col"));
-    moveHlEl(thisRow, thisCol);
     //선택이 가능한 셀들 중 현재 마우스가 위치한 셀 인덱스 값을 기준으로 위치한 값듦 배열에 넣기
     selectedCellIdx = [];
     if (isMouseDown) {

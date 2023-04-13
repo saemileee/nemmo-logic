@@ -1,15 +1,10 @@
 import { renderPuzzleList } from "./PuzzleList.js";
 
-//test
-import { renderStage } from "./Stage.js";
-
 export function fetchPuzzleData($main) {
   fetch("/api/posts")
     .then((res) => res.json())
-    .then((puzzleDB) => {
-      renderPuzzleList(puzzleDB, $main);
-
-      //for test
-      // renderStage(puzzleDB[0], puzzleDB, $main);
+    .then((postDB) => {
+      const { page, perPage, posts, totalPage, total } = postDB;
+      renderPuzzleList(page, perPage, totalPage, posts, $main, total);
     });
 }

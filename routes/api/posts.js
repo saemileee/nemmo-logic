@@ -6,13 +6,22 @@ router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
 router.get("/", async (req, res) => {
-  try {
-    const posts = await Post.find({});
-    res.send(posts);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Internal Server Error");
-  }
+  const page = Number(req.query.page || 1);
+  const perPage = Number(req.query.perPage || 10);
+  const total = await Post.countDocuments({});
+  const posts = await Post.find({})
+    .sort({ createdAt: -1 })
+    .skip(perPage * (page - 1))
+    .limit(perPage);
+  const totalPage = Math.ceil(total / perPage);
+  res.send({ posts, page, perPage, totalPage, total });
+  // try {
+  //   const posts = await Post.find({});
+  //   res.send(posts);
+  // } catch (err) {
+  //   console.error(err);
+  //   res.status(500).send("Internal Server Error");
+  // }
 });
 
 router.post("/", async (req, res) => {

@@ -1,9 +1,16 @@
 import { renderStage } from "./Stage.js";
 
-export function renderPuzzleList(puzzleDB, $main) {
+export function renderPuzzleList(
+  page,
+  perPage,
+  totalPage,
+  puzzleDB,
+  $main,
+  total
+) {
   const $puzzleListCount = document.createElement("p");
   $puzzleListCount.setAttribute("id", "puzzle-count");
-  $puzzleListCount.innerHTML = `${puzzleDB.length}개믜 문제`;
+  $puzzleListCount.innerHTML = `${total}개믜 문제`;
   $main.appendChild($puzzleListCount);
 
   const $puzzleTable = document.createElement("table");
@@ -34,6 +41,31 @@ export function renderPuzzleList(puzzleDB, $main) {
   const $tbody = document.createElement("tbody");
   $puzzleTable.appendChild($tbody);
 
+  const $pagination = document.createElement("ul");
+  $pagination.setAttribute("id", "pagination");
+  $main.appendChild($pagination);
+
+  for (let i = 1; i <= totalPage; i++) {
+    const $pageNumber = document.createElement("span");
+    $pageNumber.innerHTML = `${i}`;
+    if (i === page) {
+      $pageNumber.setAttribute("class", "active");
+    }
+    $pageNumber.addEventListener("click", clickPageNumberHandler);
+    function clickPageNumberHandler() {
+      fetch(`/api/posts?page=${i}&perPage${perPage}`)
+        .then((res) => res.json())
+        .then((postDB) => {
+          $main.innerHTML = "";
+          const { page, perPage, posts, totalPage, total } = postDB;
+          renderPuzzleList(page, perPage, totalPage, posts, $main, total);
+        });
+      // window.history.pushState(null, "", `puzzles?page=${i}&perPage${perPage}`);
+      //SSR 위한 pushstate
+    }
+    $pagination.appendChild($pageNumber);
+  }
+
   //퍼즐 리스트
   puzzleDB.forEach((data) => {
     const $tr = document.createElement("tr");
@@ -52,8 +84,7 @@ export function renderPuzzleList(puzzleDB, $main) {
 
     function puzzleListTitlesClickHandler(e) {
       e.preventDefault();
-      $puzzleTable.remove();
-      $puzzleListCount.remove();
+      $main.innerHTML = "";
       renderStage(data, $main);
 
       window.history.pushState(null, "", `puzzles/${data.id}`);

@@ -84,7 +84,12 @@ header #main-banner div div {
 }
 
 main {
+  display: block;
   margin-top: 2rem;
+}
+
+main > * {
+  vertical-align: middle;
 }
 
 main #puzzle-count {
@@ -94,7 +99,7 @@ main #puzzle-count {
 
 main table {
   margin-top: 1rem;
-  margin-bottom: 5rem;
+  margin-bottom: 2.5rem;
   border-collapse: collapse;
   width: 100%;
   text-indent: initial;
@@ -150,6 +155,30 @@ main table tr td {
   border: 1px solid rgb(215, 226, 235);
   vertical-align: inherit;
   display: table-cell;
+}
+
+main #pagination {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+main #pagination span {
+  display: inline-block;
+  margin-right: 0.5rem;
+  background-color: #e5eaef;
+  color: #7f8a91;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 2rem;
+  cursor: pointer;
+  border-radius: 0.4rem;
+}
+
+main #pagination span.active {
+  background-color: #a5c3e1;
+  color: #edeff0;
 }
 
 footer {
