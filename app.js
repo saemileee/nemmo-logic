@@ -1,3 +1,6 @@
+require("dotenv").config();
+const { PORT, MONGO_URI } = process.env;
+
 const express = require("express");
 const mongoose = require("mongoose");
 const puzzlesRouter = require("./routes/puzzles");
@@ -5,13 +8,10 @@ const postsAPIRouter = require("./routes/api/posts");
 
 const app = express();
 
-mongoose.connect(
-  "***REMOVED***
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 const db = mongoose.connection;
 
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
@@ -28,9 +28,7 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
-d;
-
 app.use("/puzzles", puzzlesRouter);
 app.use("/api/posts", postsAPIRouter);
 
-app.listen(process.env.PORT || 8080, () => console.log("Server running..."));
+app.listen(PORT || 4000, () => console.log("Server running..."));
