@@ -1,34 +1,30 @@
 const express = require("express");
 const router = express.Router();
-const { Post } = require("../../models");
+const { Post, Counter } = require("../../models");
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
 router.get("/", async (req, res) => {
-  const page = Number(req.query.page || 1);
-  const perPage = Number(req.query.perPage || 10);
-  const total = await Post.countDocuments({});
-  const posts = await Post.find({})
-    .sort({ createdAt: -1 })
-    .skip(perPage * (page - 1))
-    .limit(perPage);
-  const totalPage = Math.ceil(total / perPage);
-  res.send({ posts, page, perPage, totalPage, total });
-  // try {
-  //   const posts = await Post.find({});
-  //   res.send(posts);
-  // } catch (err) {
-  //   console.error(err);
-  //   res.status(500).send("Internal Server Error");
-  // }
+  try {
+    const page = Number(req.query.page || 1);
+    const perPage = Number(req.query.perPage || 10);
+    const total = await Post.countDocuments({});
+    const posts = await Post.find({})
+      .sort({ id: 1 })
+      .skip(perPage * (page - 1))
+      .limit(perPage);
+    const totalPage = Math.ceil(total / perPage);
+    res.send({ posts, page, perPage, totalPage, total });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 router.post("/", async (req, res) => {
   try {
-    // 요청 본문에서 퍼즐 정보를 추출합니다.
     const {
-      id,
       title,
       answer,
       status,
@@ -39,9 +35,13 @@ router.post("/", async (req, res) => {
       show,
     } = req.body;
 
-    // 새로운 퍼즐 객체를 생성합니다.
+    const counter = await Counter.findOneAndUpdate(
+      { _id: "post_id" },
+      { $inc: { sequence_value: 1 } }
+    );
+
     const newPost = await Post.create({
-      id,
+      id: counter.sequence_value,
       title,
       answer,
       status,
@@ -54,15 +54,18 @@ router.post("/", async (req, res) => {
     res.redirect(`/puzzles/${newPost.id}`);
   } catch (err) {
     console.error(err);
-    // 오류 응답을 반환합니다.
     res.status(500).send("Internal Server Error");
   }
 });
 
 router.get("/:puzzleId", async (req, res) => {
-  const { puzzleId } = req.params;
-  const post = await Post.findOne({ id: puzzleId });
-  res.json(post);
+  try {
+    const { puzzleId } = req.params;
+    const post = await Post.findOne({ id: puzzleId });
+    res.json(post);
+  } catch (e) {
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 module.exports = router;
