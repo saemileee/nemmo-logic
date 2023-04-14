@@ -1,4 +1,4 @@
-import { renderStage } from "./Stage.js";
+import { renderPuzzle } from "./Puzzle.js";
 
 export function renderPuzzleList(
   page,
@@ -85,7 +85,7 @@ export function renderPuzzleList(
     function puzzleListTitlesClickHandler(e) {
       e.preventDefault();
       $main.innerHTML = "";
-      renderStage(data, $main);
+      renderPuzzle(data, $main);
 
       window.history.pushState(null, "", `puzzles/${data.id}`);
     }

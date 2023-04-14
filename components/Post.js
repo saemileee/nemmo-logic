@@ -1,4 +1,4 @@
-import { renderStage } from "../../components/Stage.js";
+import { renderPuzzle } from "../../components/Puzzle.js";
 
 export function renderPost($main) {
   let ROWS = 5;

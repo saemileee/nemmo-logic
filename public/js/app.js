@@ -1,6 +1,6 @@
 import Header from "../../components/Header.js";
 import Main from "../../components/Main.js";
-import { renderStage } from "../../components/Stage.js";
+import { renderPuzzle } from "../../components/Puzzle.js";
 import { renderPost } from "../../components/Post.js";
 
 const $root = document.createElement("div");
@@ -21,12 +21,20 @@ export function renderMain() {
     Main();
   } else if (currentPathname === "/puzzles/posts") {
     renderPost($main);
-  } else {
+  } else if (
+    currentPathname.includes("/puzzles") &&
+    typeof Number(currentPathname.split("/")[2]) === "number"
+  ) {
     fetch(`/api/puzzles/${currentPathname.split("/")[2]}`)
       .then((data) => data.json())
       .then((post) => {
-        renderStage(post, $main);
+        renderPuzzle(post, $main);
       });
+  } else if (
+    currentPathname.includes("/puzzles/posts") &&
+    typeof Number(currentPathname.split("/")[3]) === "number"
+  ) {
+    renderPost($main);
   }
 }
 
