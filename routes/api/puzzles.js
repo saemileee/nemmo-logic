@@ -67,6 +67,7 @@ router.get("/:puzzleId", async (req, res) => {
       { id: puzzleId },
       { title, answer, status, size, show }
     );
+    res.json(post);
   } catch (e) {
     res.status(500).send("Internal Server Error");
   }
@@ -75,8 +76,10 @@ router.get("/:puzzleId", async (req, res) => {
 //DELETE
 router.delete("/:puzzleId", async (req, res) => {
   const { puzzleId } = req.params;
+  console.log(puzzleId);
   try {
-    await Post.delete({ id: puzzleId });
+    await Post.deleteOne({ id: puzzleId });
+    res.send("OK");
   } catch (e) {
     res.status(500).send("Internal Server Error");
   }

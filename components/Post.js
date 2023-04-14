@@ -382,7 +382,7 @@ export function renderPost($main) {
       };
 
       try {
-        const response = await fetch(" /api/puzzles", {
+        const response = await fetch("/api/puzzles", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(post),

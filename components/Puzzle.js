@@ -361,4 +361,27 @@ export function renderPuzzle(data, $main) {
   $submitBtn.addEventListener("click", submitAnswer);
   $submitBtn.innerHTML = "제출하기";
   $gamePage.appendChild($submitBtn);
+
+  if (location.host === "localhost:8080") {
+    const $deleteBtn = document.createElement("button");
+    $deleteBtn.setAttribute("id", "delete");
+    $deleteBtn.addEventListener("click", () => {
+      const puzzleId = location.pathname.split("/")[2];
+      fetch(`/api/puzzles/${puzzleId}`, { method: "DELETE" })
+        .then((res) => {
+          if (res.ok) {
+            alert("삭제되었습니다.");
+            window.location.href = "/puzzles";
+          } else {
+            alert("오류가 발생했습니다.");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("권한을 확인하세요.");
+        });
+    });
+    $deleteBtn.innerHTML = "삭제하기";
+    $gamePage.appendChild($deleteBtn);
+  }
 }
