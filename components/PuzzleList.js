@@ -23,10 +23,10 @@ export function renderPuzzleList(
   const $tr = document.createElement("tr");
   $thead.appendChild($tr);
 
-  const $thPuzzleId = document.createElement("th");
-  $thPuzzleId.setAttribute("class", "id");
-  $thPuzzleId.innerHTML = "번호";
-  $tr.appendChild($thPuzzleId);
+  // const $thPuzzleId = document.createElement("th");
+  // $thPuzzleId.setAttribute("class", "id");
+  // $thPuzzleId.innerHTML = "번호";
+  // $tr.appendChild($thPuzzleId);
 
   const $thPuzzleTitle = document.createElement("th");
   $thPuzzleTitle.setAttribute("class", "title");
@@ -71,10 +71,10 @@ export function renderPuzzleList(
     const $tr = document.createElement("tr");
     $tbody.appendChild($tr);
 
-    const $tdPuzzleId = document.createElement("td");
-    $tdPuzzleId.setAttribute("class", "id");
-    $tdPuzzleId.innerHTML = `${data.id}`;
-    $tr.appendChild($tdPuzzleId);
+    // const $tdPuzzleId = document.createElement("td");
+    // $tdPuzzleId.setAttribute("class", "id");
+    // $tdPuzzleId.innerHTML = `${data.id}`;
+    // $tr.appendChild($tdPuzzleId);
 
     const $tdPuzzleTitle = document.createElement("td");
     $tdPuzzleTitle.setAttribute("class", "title");

@@ -28,6 +28,8 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
+d;
+
 app.use("/puzzles", puzzlesRouter);
 app.use("/api/posts", postsAPIRouter);
 
