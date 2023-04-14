@@ -15,25 +15,17 @@ router.get("/", async (req, res) => {
       .skip(perPage * (page - 1))
       .limit(perPage);
     const totalPage = Math.ceil(total / perPage);
-    res.send({ posts, page, perPage, totalPage, total });
+    res.json({ posts, page, perPage, totalPage, total });
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
   }
 });
 
+//CREATE
 router.post("/", async (req, res) => {
   try {
-    const {
-      title,
-      answer,
-      status,
-      size,
-      recommendation,
-      avgTime,
-      finishedCount,
-      show,
-    } = req.body;
+    const { title, answer, status, size, show } = req.body;
 
     const counter = await Counter.findOneAndUpdate(
       { _id: "post_id" },
@@ -46,9 +38,6 @@ router.post("/", async (req, res) => {
       answer,
       status,
       size,
-      recommendation,
-      avgTime,
-      finishedCount,
       show,
     });
     res.redirect(`/puzzles/${newPost.id}`);
@@ -58,11 +47,36 @@ router.post("/", async (req, res) => {
   }
 });
 
+//READ
 router.get("/:puzzleId", async (req, res) => {
+  const { puzzleId } = req.params;
   try {
-    const { puzzleId } = req.params;
     const post = await Post.findOne({ id: puzzleId });
     res.json(post);
+  } catch (e) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+//UPDATE
+router.get("/:puzzleId", async (req, res) => {
+  const { puzzleId } = req.params;
+  try {
+    const { title, answer, status, size, show } = req.body;
+    const post = await Post.findOneAndUpdate(
+      { id: puzzleId },
+      { title, answer, status, size, show }
+    );
+  } catch (e) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+//DELETE
+router.delete("/:puzzleId", async (req, res) => {
+  const { puzzleId } = req.params;
+  try {
+    await Post.delete({ id: puzzleId });
   } catch (e) {
     res.status(500).send("Internal Server Error");
   }

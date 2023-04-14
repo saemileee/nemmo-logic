@@ -17,12 +17,12 @@ export function renderMain() {
 
   const $main = document.createElement("main");
   $root.appendChild($main);
-  if (currentPathname === "/") {
+  if (currentPathname === "/puzzles") {
     Main();
-  } else if (currentPathname === "/puzzles/post") {
+  } else if (currentPathname === "/puzzles/posts") {
     renderPost($main);
   } else {
-    fetch(`/api/posts/${currentPathname.split("/")[2]}`)
+    fetch(`/api/puzzles/${currentPathname.split("/")[2]}`)
       .then((data) => data.json())
       .then((post) => {
         renderStage(post, $main);

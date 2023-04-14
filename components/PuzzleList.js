@@ -53,7 +53,7 @@ export function renderPuzzleList(
     }
     $pageNumber.addEventListener("click", clickPageNumberHandler);
     function clickPageNumberHandler() {
-      fetch(`/api/posts?page=${i}&perPage${perPage}`)
+      fetch(` /api/puzzles?page=${i}&perPage${perPage}`)
         .then((res) => res.json())
         .then((postDB) => {
           $main.innerHTML = "";

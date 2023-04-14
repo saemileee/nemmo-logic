@@ -2,9 +2,10 @@ require("dotenv").config();
 const { PORT, MONGO_URI } = process.env;
 
 const express = require("express");
+const path = require("path");
 const mongoose = require("mongoose");
 const puzzlesRouter = require("./routes/puzzles");
-const postsAPIRouter = require("./routes/api/posts");
+const postsAPIRouter = require("./routes/api/puzzles");
 
 const app = express();
 
@@ -25,10 +26,10 @@ app.use("/public", express.static(__dirname + "/public"));
 app.use("/components", express.static(__dirname + "/components"));
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
+  res.redirect("/puzzles");
 });
 
 app.use("/puzzles", puzzlesRouter);
-app.use("/api/posts", postsAPIRouter);
+app.use("/api/puzzles", postsAPIRouter);
 
 app.listen(PORT || 4000, () => console.log("Server running..."));

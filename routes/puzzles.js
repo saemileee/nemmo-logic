@@ -8,11 +8,7 @@ router.use(
   express.static(path.join(__dirname, "../components"))
 );
 
-router.get("/:puzzleId", (req, res, next) => {
-  res.sendFile(path.join(__dirname, "../index.html"));
-});
-
-router.get("/post", (req, res, next) => {
+router.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../index.html"));
 });
 

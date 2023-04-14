@@ -6,7 +6,7 @@ export default function renderHeader() {
   $h1.innerHTML = `<p>Welcome to</p><p>넴모로직</p>`;
   $h1.addEventListener("click", () => {
     const $main = document.getElementsByTagName("main")[0];
-    window.history.pushState(null, "", `/`);
+    window.history.pushState(null, "", `/puzzles`);
     $main.remove();
     renderMain();
   });
