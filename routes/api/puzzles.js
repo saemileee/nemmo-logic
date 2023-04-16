@@ -59,11 +59,11 @@ router.get("/:puzzleId", async (req, res) => {
 });
 
 //UPDATE
-router.get("/:puzzleId", async (req, res) => {
+router.put("/:puzzleId", async (req, res) => {
   const { puzzleId } = req.params;
   try {
     const { title, answer, status, size, show } = req.body;
-    const post = await Post.findOneAndUpdate(
+    const post = await Post.updateOne(
       { id: puzzleId },
       { title, answer, status, size, show }
     );

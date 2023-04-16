@@ -363,6 +363,18 @@ export function renderPuzzle(data, $main) {
   $gamePage.appendChild($submitBtn);
 
   if (location.host === "localhost:8080") {
+    const $editBtn = document.createElement("button");
+    $editBtn.setAttribute("id", "edit");
+    $editBtn.addEventListener("click", () => {
+      //
+      //renderPost(data)
+      //renderPost 에서 title, size value 보존,
+    });
+    $editBtn.innerHTML = "수정하기";
+    $gamePage.appendChild($editBtn);
+  }
+
+  if (location.host === "localhost:8080") {
     const $deleteBtn = document.createElement("button");
     $deleteBtn.setAttribute("id", "delete");
     $deleteBtn.addEventListener("click", () => {

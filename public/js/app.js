@@ -13,26 +13,25 @@ Header();
 
 //렌더링할 때마다 바뀌는 콘텐츠 영역
 export function renderMain() {
-  let currentPathname = location.pathname;
+  let pathParts = location.pathname.split("/");
 
   const $main = document.createElement("main");
   $root.appendChild($main);
-  if (currentPathname === "/puzzles") {
+
+  if (location.pathname === "puzzles") {
     Main();
-  } else if (currentPathname === "/puzzles/posts") {
+  } else if (pathParts[1] === "puzzles" && pathParts[2] === "posts") {
     renderPost($main);
-  } else if (
-    currentPathname.includes("/puzzles") &&
-    typeof Number(currentPathname.split("/")[2]) === "number"
-  ) {
-    fetch(`/api/puzzles/${currentPathname.split("/")[2]}`)
+  } else if (pathParts[1] === "puzzles" && !isNaN(Number(pathParts[2]))) {
+    fetch(`/api/puzzles/${Number(pathParts[2])}`)
       .then((data) => data.json())
       .then((post) => {
         renderPuzzle(post, $main);
       });
   } else if (
-    currentPathname.includes("/puzzles/posts") &&
-    typeof Number(currentPathname.split("/")[3]) === "number"
+    pathParts[1] === "puzzles" &&
+    pathParts[2] === "posts" &&
+    !isNaN(Number(pathParts[3]))
   ) {
     renderPost($main);
   }
