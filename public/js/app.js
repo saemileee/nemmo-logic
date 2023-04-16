@@ -18,7 +18,7 @@ export function renderMain() {
   const $main = document.createElement("main");
   $root.appendChild($main);
 
-  if (location.pathname === "puzzles") {
+  if (location.pathname === "/puzzles") {
     Main();
   } else if (pathParts[1] === "puzzles" && pathParts[2] === "posts") {
     renderPost($main);

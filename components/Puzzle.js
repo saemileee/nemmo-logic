@@ -1,3 +1,4 @@
+import { renderPost } from "./Post.js";
 import { renderPuzzleList } from "./PuzzleList.js";
 
 export function renderPuzzle(data, $main) {
@@ -366,7 +367,9 @@ export function renderPuzzle(data, $main) {
     const $editBtn = document.createElement("button");
     $editBtn.setAttribute("id", "edit");
     $editBtn.addEventListener("click", () => {
-      //
+      $main.innerHTML = "";
+      renderPost($main);
+      window.history.pushState(null, "", `/puzzles/posts/${data.id}`);
       //renderPost(data)
       //renderPost 에서 title, size value 보존,
     });

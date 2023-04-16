@@ -20,7 +20,7 @@ db.once("open", () => {
   console.log("Successfully connected to MongoDB");
 });
 
-app.set("trust proxy", true);
+// app.set("trust proxy", true);
 
 app.use("/public", express.static(__dirname + "/public"));
 app.use("/components", express.static(__dirname + "/components"));

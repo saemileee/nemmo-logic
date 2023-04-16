@@ -407,5 +407,53 @@ export function renderPost($main) {
     $submitBtn.innerHTML = "업로드";
     $gamePage.appendChild($submitBtn);
   }
-  renderPostSubmitBtn();
+
+  function renderPostEditDoneBtn() {
+    //포스팅 버튼
+    async function putPost() {
+      const post = {
+        title: $titleInput.value,
+        answer: answerCells,
+        status: true,
+        size: `${COLS}*${ROWS}`,
+        recommendation: 0,
+        avgTime: 0,
+        finishedCount: 0,
+        show: true,
+      };
+
+      try {
+        const response = await fetch(
+          `/api/puzzles/${location.pathname.split("/")[3]}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(post),
+          }
+        );
+        if (response.ok) {
+          // DB에 데이터가 성공적으로 삽입되면 성공 메시지를 출력합니다.
+          alert("퍼즐이 성공적으로 수정되었습니다.");
+          window.location.href = `/puzzles/${location.pathname.split("/")[3]}`;
+        } else {
+          alert("내용을 입력해 주세요.");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("예기치 못한 오류가 발생했습니다.");
+      }
+    }
+
+    const $editDoneBtn = document.createElement("button");
+    $editDoneBtn.setAttribute("id", "edit-done");
+    $editDoneBtn.addEventListener("click", putPost);
+    $editDoneBtn.innerHTML = "수정 완료";
+    $gamePage.appendChild($editDoneBtn);
+  }
+
+  if (location.pathname === "/puzzles/posts") {
+    renderPostSubmitBtn();
+  } else if (!isNaN(Number(location.pathname.split("/")[3]))) {
+    renderPostEditDoneBtn();
+  }
 }
