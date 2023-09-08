@@ -15,12 +15,6 @@
 - 부트캠프 수업과 병행하여 파트타임으로 프로젝트를 진행하였습니다.
 
 
-
-## 배포 사이트
-https://github.com/saemileee/nemmo-logic
-
-
-
 ## 프로젝트 시연 영상 보기
 https://drive.google.com/file/d/1fUxQq-ohLUC0hN0Pu2TDf3rnN08rJTX2/view?usp=sharing
 
